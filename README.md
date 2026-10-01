@@ -10,7 +10,3 @@ teams named after colors. Season after season, the league grew, multiple tiers o
 to make the game more interesting were added. Now, after ten years and 29 finished seasons, Matchup League is finally going digital.
 
 This project features the season 11 Palette League. The teams and cards are based on an assortment of fictional and original series.
-
-## New for 2.1.0
-
--

@@ -1,4 +1,4 @@
-extends "res://editor/fighter_table.gd"
+extends Node
 
 const no_id = "-1"
 
@@ -11,28 +11,29 @@ const no_id = "-1"
 @export var wkType: OptionButton
 @export var wkVal: SpinBox
 @export var team: OptionButton
-@export var startSeason: SpinBox
+@export var starting_season: SpinBox
 
 var teamID = -1
 var fighter: Fighter
+var level: Level
 
 func _enter_tree():
 	pass
 
 func render_row(f : Fighter):
 	fighter = f
+	level = fighter.get_level()
 	fill_mod_obs()
-	if (!level): level = Main.get_level("Prep")
 	id.text = str(f.id)
-	f_name.text = f.de_name
+	f_name.text = f.get_name()
 	types.text = f.types_str()
-	base.value = f.base
-	strType.selected = find_item_idx(strType, Main.Types.find_key(f.strType))
-	strVal.value = f.strVal
-	wkType.selected = find_item_idx(wkType, Main.Types.find_key(f.wkType))
-	wkVal.value = f.wkVal
-	startSeason.value = f.startSeason
-	teamID = f.teamID
+	base.value = f.get_base()
+	strType.selected = find_item_idx(strType, Main.Types.find_key(f.str_type))
+	strVal.value = f.get_strength_val()
+	wkType.selected = find_item_idx(wkType, Main.Types.find_key(f.wk_type))
+	wkVal.value = f.get_weak_val()
+	starting_season.value = f.starting_season
+	teamID = f.team_ID
 	set_team()
 
 ##fill option buttons for strength and weakness types
@@ -80,7 +81,7 @@ func save():
 		"strVal": strVal.value,
 		"wkType": Main.Types[wkType.get_item_text(wkType.selected)],
 		"wkVal": wkVal.value,
-		"start season": startSeason.value,
+		"start season": starting_season.value,
 		"team ID": teamID
 	}
 	if (id.text == no_id):

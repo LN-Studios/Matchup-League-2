@@ -3,18 +3,18 @@ class_name Fighter extends DataEntity
 #match vars
 var types
 var base
-var strType
-var strVal
-var wkType
-var wkVal ##stored as positive
+var str_type
+var str_val
+var wk_type
+var wk_val ##stored as positive
 
 #team vars
-var teamID = -1
+var team_ID = -1
 var team ## only edit using set_team
 var contract
 var retirement
 
-var startSeason
+var starting_season
 var potential
 
 #record vars
@@ -26,31 +26,31 @@ func _init(data = {}):
 	set_data(data, true)
 	
 func connect_objs():
-	if (teamID >= 0):
-		set_team(level.get_team(teamID))
-		set_series(team.series) #prep only
+	if (team_ID >= 0):
+		set_team(level.get_team(team_ID))
+		#set_series(team.series) #prep only
 
 func set_data(data: Dictionary, init = false) -> Fighter:
 	if (!init): super(data)
 	if (data == {}): return self
 	types = types_arr(data.get("types", types))
-	base = setBase(data.get("base", base))
-	strType = data.get("strType", strType)
-	strVal = setMod(data.get("strVal", strVal))
-	wkType = data.get("wkType", wkType)
-	wkVal = setMod(data.get("wkVal", wkVal))
-	startSeason = data.get("start season", season)
-	teamID = data.get("team ID", teamID)
+	base = set_base(data.get("base", base))
+	str_type = data.get("str_type", str_type)
+	str_val = set_mod(data.get("str_val", str_val))
+	wk_type = data.get("wk_type", wk_type)
+	wk_val = set_mod(data.get("wk_val", wk_val))
+	starting_season = data.get("start season", season)
+	team_ID = data.get("team ID", team_ID)
 	matches_won = data.get("wins", matches_won)
 	matches_lost = data.get("losses", matches_lost)
-	if (!init): set_team(level.get_team(teamID))
+	if (!init): set_team(level.get_team(team_ID))
 	return self
 
 func set_team(t: Team):
 	if (t == team): 
 		return
 	team = t
-	teamID = team.id
+	team_ID = team.id
 	team.add_fighter(self)
 
 ## returns an array of types from a character string. ex: ABC -> [A, B, C]
@@ -80,23 +80,32 @@ func types_icon(type_arr = types) -> String:
 	return type_str
 
 
-func setBase(new):
+func set_base(new: int) -> int:
 	if (new < Main.MIN_BASE):
 		new = Main.MIN_BASE
 	elif (new > Main.MAX_BASE):
 		new = Main.MAX_BASE
 	return new
 		
-func setMod(new):
+func set_mod(new: int) -> int:
 	if (new < Main.MIN_MOD):
 		new = Main.MIN_MOD
 	elif (new > Main.MAX_MOD):
 		new = Main.MAX_MOD
 	return new
 
+func get_base() -> int:
+	return base
+
+func get_strength_val() -> int:
+	return str_val
+
+func get_weak_val(positive = true) -> int:
+	return wk_val if (positive) else -wk_val
+
 ## compiles fighter rating from stats
 func get_rating() -> float:
-	return (base * Rating.BASE_WT) + (strVal * Rating.STR_WT) - (wkVal * Rating.WK_WT)
+	return (base * Rating.BASE_WT) + (str_val * Rating.STR_WT) - (wk_val * Rating.WK_WT)
 
 func win_pct() -> float:
 	if (matches_played() == 0):
@@ -129,12 +138,12 @@ func str_mod(use_strength = true) -> String:
 	var pm = ""
 	var val = 0
 	if (use_strength):
-		type = strType
-		val = strVal
+		type = str_type
+		val = str_val
 		pm = "+"
 	else:
-		type = wkType
-		val = wkVal
+		type = wk_type
+		val = wk_val
 		pm = "-"
 	
 	return "(%s) %s%d" % [type, pm, val]
@@ -153,12 +162,12 @@ func format_save() -> Dictionary:
 		"season": season,
 		"types": types_str(),
 		"base": base,
-		"strType": strType,
-		"strVal": strVal,
-		"wkType": wkType,
-		"wkVal": wkVal,
-		"start season": startSeason,
-		"team ID": teamID,
+		"str_type": str_type,
+		"str_val": str_val,
+		"wk_type": wk_type,
+		"wk_val": wk_val,
+		"start season": starting_season,
+		"team ID": team_ID,
 		"wins": matches_won,
 		"losses": matches_lost,
 	}

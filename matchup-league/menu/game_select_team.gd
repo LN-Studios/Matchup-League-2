@@ -14,7 +14,7 @@ func _ready():
 func render(t: Team = null, fp = false):
 	freeplay = fp
 	if (!t):
-		t = Main.Levels.Prep.random_team(Filter.exclude_self(team))
+		t = Main.Levels.  .random_team(Filter.exclude_self(team))
 	team = t
 	if (freeplay):
 		team_option.clear()

@@ -11,7 +11,7 @@ func _ready():
 
 func render(t: Team = null):
 	if (!t):
-		t =  Main.Levels.Prep.random_team_exclude(team)
+		t =  level.random_team_exclude(team)
 	team = t
 	team_option.clear()
 	var select = 0

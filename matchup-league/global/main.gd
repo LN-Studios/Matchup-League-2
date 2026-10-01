@@ -24,7 +24,7 @@ var Version = {
 	Build = 2,
 	Version = 1,
 	Release = 0,
-	Commit = 4
+	Commit = 5
 }
 
 func str_version(drop_commit = false) -> String: 
@@ -147,7 +147,7 @@ func _ready():
 	SignalBus.set_scene.connect(set_scene)
 	season = 11
 	Levels.Prep = Level.new("Prep", 3, 4)
-	Levels.Pro = Level.new("Prep", 8, 10)
+	Levels.Pro = Level.new("Pro", 8, 10)
 	Levels.Archive = Archive.new()
 	rep = Reproducible.new()
 	Stream.queue(load_state)

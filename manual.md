@@ -1,5 +1,5 @@
 matchup league development manual/log/idk
-last updated: 2.1.0.4
+last updated: 2.1.0.5
 
 # table of contents
 
@@ -20,8 +20,7 @@ last updated: 2.1.0.4
 
 ## commit goals
 
-- update manual
-- get editor working again
+- pro level
 
 ## release goals
 

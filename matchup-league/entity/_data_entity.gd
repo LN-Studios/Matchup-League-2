@@ -32,6 +32,9 @@ func get_basic_data() -> Dictionary:
 	}
 	return data
 
+func get_level() -> Level:
+	return level
+
 func get_level_name() -> String: 
 	return level.name
 

@@ -45,6 +45,6 @@ func set_game():
 		"team2id" = tc_arr[1].team.id,
 		"round" = Main.GameRound.Freeplay,
 		"connect" = true,
-		"level name" = Main.Levels.Prep.name,
+		"level name" = level.get_name(),
 	}
 	game = level.add_game(data, true) #should be archive eventually
